@@ -40,17 +40,12 @@ export interface TransitionTable {
  * 1. The "current" world rotation is canonical(face) ∘ rollK (k = roll).
  * 2. The user crosses edge `visibleEdge` (in the rolled visible frame). We map
  *    it back to an actual face edge: `faceEdge = (visibleEdge - roll) mod N`.
- * 3. The adjacent face across that edge becomes the new face. We pick the
- *    destination roll so that the *incoming* edge (the one we just crossed,
- *    now seen from the other side) appears at the visible position
- *    diametrically opposite the swipe direction. This preserves the user's
- *    forward orientation across navigations: swiping "right" twice keeps
- *    moving "right" relative to the screen, instead of bouncing back.
- *
- * The previous implementation picked the destination roll that minimised the
- * quaternion distance to the current orientation, which gave smooth animations
- * but could produce 2-cycles where consecutive navigations through the same
- * visible edge index oscillated between two faces.
+ * 3. The adjacent face across that edge becomes the new face, and we always
+ *    arrive at it in its canonical orientation (roll = 0). That guarantees
+ *    the destination face's upHint lands on screen-up so the content reads
+ *    upright after every navigation. Direction-based navigation
+ *    (`navigate('right')`, swipes, …) stays consistent because each face's
+ *    canonical orientation is fixed.
  */
 export function buildTransitionTable(p: Polyhedron): TransitionTable {
   const adjacency = buildAdjacency(p);
@@ -82,16 +77,10 @@ export function buildTransitionTable(p: Polyhedron): TransitionTable {
     const faceEdge = visibleEdgeToFaceEdge(face, roll, visibleEdge);
     const edge = adjFace.edges[faceEdge]!;
     const toFace = edge.adjacentFaceIndex;
-    const incomingFaceEdge = edge.adjacentEdgeIndex;
-    const NTo = canon[toFace]!.rollSteps;
-
-    // Place the incoming edge diametrically opposite the swipe direction.
-    // Visible position of the incoming edge after roll = (incomingFaceEdge + roll_B) mod NTo.
-    // We want that to equal (visibleEdge + NTo/2) mod NTo, so:
-    //   roll_B = visibleEdge + round(NTo/2) - incomingFaceEdge   (mod NTo)
-    // For odd NTo there is no exact opposite; rounding picks the closer side.
-    const halfTurn = Math.round(NTo / 2);
-    const toRoll = ((visibleEdge + halfTurn - incomingFaceEdge) % NTo + NTo) % NTo;
+    // Always land in the destination face's canonical orientation. Any other
+    // roll would tilt the destination face's content (90°, 180°, 270°) and
+    // break readability of text/images on the active face.
+    const toRoll = 0;
     const targetRotation = orientationOf(toFace, toRoll);
     return { toFace, toRoll, targetRotation };
   }

@@ -540,12 +540,16 @@ export class PolyFaceLib {
 
   private tick(now: number): void {
     if (this.animation) {
-      const q = stepQuatAnimation(this.animation, now);
+      const state = this.animation;
+      const q = stepQuatAnimation(state, now);
       this.currentRotation = q;
       this.render(now);
-      const p = animationProgress(this.animation, now);
+      const p = animationProgress(state, now);
+      // Capture `done` before emitting: an `animationFrame` listener may
+      // synchronously call `finish()` which nulls out `this.animation`.
+      const done = state.done;
       this.emitter.emit('animationFrame', { progress: p });
-      if (!this.animation.done) {
+      if (!done) {
         this.loop.wake();
       }
     } else {

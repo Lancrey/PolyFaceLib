@@ -52,6 +52,34 @@ describe('PolyFaceLib', () => {
     expect(() => new PolyFaceLib({ container: '#nope', polyhedron: cube() })).toThrow();
   });
 
+  it('cube: navigate("right") four times returns to the front face', async () => {
+    const c = makeContainer();
+    const view = new PolyFaceLib({
+      container: c,
+      polyhedron: cube(),
+      animation: { duration: 0 },
+    });
+    expect(view.getCurrentFace().index).toBe(0);
+    for (let i = 0; i < 4; i++) await view.navigate('right');
+    expect(view.getCurrentFace().index).toBe(0);
+    expect(view.getCurrentFace().roll).toBe(0);
+    view.destroy();
+  });
+
+  it('every navigation lands at roll=0 (active face stays upright)', async () => {
+    const c = makeContainer();
+    const view = new PolyFaceLib({
+      container: c,
+      polyhedron: cube(),
+      animation: { duration: 0 },
+    });
+    for (const dir of ['right', 'down', 'left', 'up', 'right', 'right'] as const) {
+      await view.navigate(dir);
+      expect(view.getCurrentFace().roll).toBe(0);
+    }
+    view.destroy();
+  });
+
   it('goToFace skips animation when animate=false', async () => {
     const c = makeContainer();
     const view = new PolyFaceLib({ container: c, polyhedron: cube() });
