@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { cube, tetrahedron, octahedron, dodecahedron, icosahedron, prism } from '../src/polyhedra/presets';
 import { validatePolyhedron, faceNormal, faceCentroid } from '../src/polyhedra/polyhedron';
 import { buildAdjacency } from '../src/polyhedra/adjacency';
+import { canonicalOrientation } from '../src/polyhedra/orientations';
+import { Quat } from '../src/core/math/quat';
 import { Vec3 } from '../src/core/math/vec3';
 
 const presets = [
@@ -54,6 +56,20 @@ describe.each(presets)('preset $name', ({ name, build, expectedFaces, expectedVe
         const back = other.edges[e.adjacentEdgeIndex]!;
         expect(back.adjacentFaceIndex).toBe(fa.faceIndex);
       }
+    }
+  });
+
+  it('canonical orientation aligns each face normal with +Z and up with +Y', () => {
+    for (let i = 0; i < p.faces.length; i++) {
+      const co = canonicalOrientation(p, i);
+      const n = Quat.rotate(co.rotation, faceNormal(p, i));
+      expect(n[0]).toBeCloseTo(0, 6);
+      expect(n[1]).toBeCloseTo(0, 6);
+      expect(n[2]).toBeCloseTo(1, 6);
+      const u = Quat.rotate(co.rotation, co.upObject);
+      expect(u[0]).toBeCloseTo(0, 6);
+      expect(u[1]).toBeCloseTo(1, 6);
+      expect(u[2]).toBeCloseTo(0, 6);
     }
   });
 });

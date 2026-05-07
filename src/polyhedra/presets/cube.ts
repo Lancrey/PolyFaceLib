@@ -2,8 +2,10 @@ import type { Polyhedron } from '../polyhedron';
 
 /**
  * Unit cube centered at origin, edge length = 2 (vertices at ±1).
- * Faces ordered as: +X, -X, +Y, -Y, +Z, -Z.
- * Each face's vertices are listed clockwise when viewed from outside.
+ * Faces are ordered front, back, right, left, top, bottom and listed
+ * counter-clockwise when viewed from outside the cube. `faceNormal` checks
+ * each face against the polyhedron centroid so the winding convention is
+ * not load-bearing — pick whichever is easier to read.
  */
 export function cube(): Polyhedron {
   const v = [

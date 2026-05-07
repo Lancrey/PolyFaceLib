@@ -92,10 +92,10 @@ export class Projector {
   }
 
   private getPerspective(): number {
-    // Encode in matrix; recover from m[10] which equals -1/d.
-    const m10 = this.perspectiveMatrix[11] as number;
-    if (m10 === 0) return 0;
-    return -1 / m10;
+    // perspectiveCSS stores -1/d at column 2, row 3 → linear index 11.
+    const m11 = this.perspectiveMatrix[11] as number;
+    if (m11 === 0) return 0;
+    return -1 / m11;
   }
   private getCameraDistance(): number {
     return -this.cameraTranslate[14]!;
@@ -147,8 +147,6 @@ export class Projector {
 
     // Inscribed rectangle: simple heuristic — largest centered axis-aligned rect inside the polygon.
     const inscribed = inscribedAxisAlignedRect(local2D);
-
-    void faceNormal; // keep import side-effect for type checker
 
     return { model, width, height, polygon2D: local2D, inscribedRect: inscribed };
   }

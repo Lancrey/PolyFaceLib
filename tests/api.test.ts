@@ -59,4 +59,16 @@ describe('PolyFaceLib', () => {
     expect(view.getCurrentFace().index).toBe(3);
     view.destroy();
   });
+
+  it('goToFace(animate:false) reports the previous face in afterNavigate.from', async () => {
+    const c = makeContainer();
+    const view = new PolyFaceLib({ container: c, polyhedron: cube() });
+    let captured: { from: number; to: number } | null = null;
+    view.on('afterNavigate', e => { captured = e; });
+    await view.goToFace(2, { animate: false });
+    expect(captured).not.toBeNull();
+    expect(captured!.from).toBe(0);
+    expect(captured!.to).toBe(2);
+    view.destroy();
+  });
 });
