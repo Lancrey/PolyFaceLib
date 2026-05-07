@@ -115,11 +115,12 @@ export class Projector {
 
     const centroid = faceCentroid(this.polyhedron, faceIndex);
     const trans = Mat4.translation(scale * centroid[0], scale * centroid[1], scale * centroid[2]);
-    const sc = Mat4.scaling(scale, scale, scale);
 
-    // Composition: first rotate the unit face into orientation, then scale, then translate.
-    // World = T * R * S
-    const model = Mat4.composeChain([trans, rot, sc]);
+    // Composition: rotate the unit face into orientation then translate.
+    // The face element is already sized in pixels (local2D below is pre-scaled
+    // by `scale`), so the model matrix must NOT re-scale it — otherwise CSS
+    // applies the scale a second time and projects every corner off-screen.
+    const model = Mat4.composeChain([trans, rot]);
 
     // Compute polygon vertices in the *local* face frame (before model transform).
     // Local frame: face on +Z, up = +Y. We project face vertices into this frame
