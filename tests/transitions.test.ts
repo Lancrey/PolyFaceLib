@@ -35,31 +35,23 @@ describe('Transition solver', () => {
     }
   });
 
-  it('cube: cycling visible edge 0 four times returns to starting (face, roll)', () => {
-    const p = cube();
+  it.each([
+    { name: 'cube', build: cube },
+    { name: 'tetrahedron', build: tetrahedron },
+    { name: 'octahedron', build: octahedron },
+    { name: 'dodecahedron', build: dodecahedron },
+    { name: 'icosahedron', build: icosahedron },
+  ])('$name: every transition lands at roll = 0 (active face is upright)', ({ build }) => {
+    const p = build();
     const t = buildTransitionTable(p);
-    let face = 0;
-    let roll = 0;
-    for (let i = 0; i < 4; i++) {
-      const res = t.get(face, roll, 0);
-      face = res.toFace;
-      roll = res.toRoll;
+    for (let f = 0; f < p.faces.length; f++) {
+      const N = p.faces[f]!.vertexIndices.length;
+      for (let r = 0; r < N; r++) {
+        for (let v = 0; v < N; v++) {
+          expect(t.get(f, r, v).toRoll).toBe(0);
+        }
+      }
     }
-    expect(face).toBe(0);
-    expect(roll).toBe(0);
-  });
-
-  it('tetrahedron: cycling through any edge returns home in 3 steps', () => {
-    const p = tetrahedron();
-    const t = buildTransitionTable(p);
-    let face = 0;
-    let roll = 0;
-    for (let i = 0; i < 3; i++) {
-      const res = t.get(face, roll, 0);
-      face = res.toFace;
-      roll = res.toRoll;
-    }
-    expect(face).toBe(0);
   });
 
   it.each([
@@ -68,26 +60,29 @@ describe('Transition solver', () => {
     { name: 'octahedron', build: octahedron },
     { name: 'dodecahedron', build: dodecahedron },
     { name: 'icosahedron', build: icosahedron },
-  ])('$name: incoming edge lands diametrically opposite the swipe direction', ({ build }) => {
+  ])('$name: round-trips back home in 1 step via the shared edge', ({ build }) => {
+    // From face A roll 0 cross visible edge v → face B roll 0. The shared
+    // edge sits at face-edge index `eB` on B; with roll 0 that's also its
+    // visible index. Crossing visible edge `eB` from B must return to A.
     const p = build();
     const t = buildTransitionTable(p);
     for (let f = 0; f < p.faces.length; f++) {
       const N = p.faces[f]!.vertexIndices.length;
-      for (let r = 0; r < N; r++) {
-        for (let v = 0; v < N; v++) {
-          const res = t.get(f, r, v);
-          // Reverse the navigation: from the destination, the visible edge that
-          // would bring us back must be roughly opposite the one we crossed.
-          const back = t.get(res.toFace, res.toRoll, 0); // any edge to fetch the table
-          void back;
-          // Specifically check that re-navigating the "incoming" visible slot
-          // returns to the original face (a 1-step round trip).
-          const NTo = p.faces[res.toFace]!.vertexIndices.length;
-          const halfTurn = Math.round(NTo / 2);
-          const incomingVisible = ((v + halfTurn) % NTo + NTo) % NTo;
-          const round = t.get(res.toFace, res.toRoll, incomingVisible);
-          expect(round.toFace).toBe(f);
-        }
+      for (let v = 0; v < N; v++) {
+        const fwd = t.get(f, 0, v);
+        const sharedFaceEdgeOnB =
+          p.faces[fwd.toFace]!.vertexIndices
+            .map((_, k) => k)
+            .find(k => {
+              const a = p.faces[fwd.toFace]!.vertexIndices[k]!;
+              const b = p.faces[fwd.toFace]!.vertexIndices[(k + 1) % p.faces[fwd.toFace]!.vertexIndices.length]!;
+              const sourceA = p.faces[f]!.vertexIndices[v]!;
+              const sourceB = p.faces[f]!.vertexIndices[(v + 1) % N]!;
+              return (a === sourceA && b === sourceB) || (a === sourceB && b === sourceA);
+            })!;
+        const back = t.get(fwd.toFace, fwd.toRoll, sharedFaceEdgeOnB);
+        expect(back.toFace).toBe(f);
+        expect(back.toRoll).toBe(0);
       }
     }
   });
