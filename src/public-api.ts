@@ -348,7 +348,7 @@ export class PolyFaceLib {
   }
 
   navigateDirection(angleRadians: number): Promise<void> {
-    const angles = visibleEdgeAngles(this.polyhedron, this.currentFace, this.currentRoll, this.adjacency);
+    const angles = visibleEdgeAngles(this.polyhedron, this.currentFace, this.currentRoll);
     let best = 0;
     let bestDist = Infinity;
     for (let i = 0; i < angles.length; i++) {
@@ -360,7 +360,7 @@ export class PolyFaceLib {
   }
 
   navigate(direction: 'up' | 'down' | 'left' | 'right'): Promise<void> {
-    const angles = visibleEdgeAngles(this.polyhedron, this.currentFace, this.currentRoll, this.adjacency);
+    const angles = visibleEdgeAngles(this.polyhedron, this.currentFace, this.currentRoll);
     const idx = edgeForDirection(angles, direction);
     return this.navigateEdge(idx);
   }

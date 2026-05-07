@@ -62,9 +62,11 @@ export function canonicalOrientation(p: Polyhedron, faceIndex: number): Canonica
   // Project on XY plane (z-component is ~0 in theory, but be safe):
   const ux = upRot[0];
   const uy = upRot[1];
-  const angle = Math.atan2(ux, uy); // angle from +Y, going around +Z (right-handed)
-  // We want to rotate by -angle around +Z to land on +Y.
-  const r2 = Quat.fromAxisAngle([0, 0, 1], -angle);
+  // `atan2(ux, uy)` measures the CW angle from +Y to the projected up vector;
+  // rotating CCW (positive right-handed) by that amount around +Z brings the
+  // vector back onto +Y.
+  const angle = Math.atan2(ux, uy);
+  const r2 = Quat.fromAxisAngle([0, 0, 1], angle);
 
   const rotation = Quat.normalize(Quat.multiply(r2, r1));
   const rollSteps = p.faces[faceIndex]!.vertexIndices.length;

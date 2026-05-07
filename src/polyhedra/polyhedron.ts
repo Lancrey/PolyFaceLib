@@ -127,18 +127,28 @@ export function validatePolyhedron(p: Polyhedron, opts: ValidationOptions = {}):
   return { ok: errors.length === 0, errors, warnings };
 }
 
+// Cache per-polyhedron centroids so `faceNormal` can be called per-face
+// per-frame without recomputing an O(V) sum each time.
+const centroidCache = new WeakMap<Polyhedron, Vec3T>();
+function polyhedronCentroid(p: Polyhedron): Vec3T {
+  let c = centroidCache.get(p);
+  if (!c) {
+    c = Vec3.centroid(p.vertices);
+    centroidCache.set(p, c);
+  }
+  return c;
+}
+
 export function faceNormal(p: Polyhedron, faceIndex: number): Vec3T {
   const f = p.faces[faceIndex]!;
   const a = p.vertices[f.vertexIndices[0]!]!;
   const b = p.vertices[f.vertexIndices[1]!]!;
   const c = p.vertices[f.vertexIndices[2]!]!;
-  // Vertices are clockwise viewed from outside, so cross(b-a, c-a) points inward.
-  // Negate so that normal points outward.
+  // Winding is not enforced by the type — flip the cross product if it points
+  // toward the polyhedron centroid so the returned normal is outward.
   const n = Vec3.cross(Vec3.sub(b, a), Vec3.sub(c, a));
-  const polyCentroid = Vec3.centroid(p.vertices);
-  // Adjust orientation so that normal points away from the centroid.
   const center = Vec3.centroid(f.vertexIndices.map(i => p.vertices[i]!));
-  const outward = Vec3.sub(center, polyCentroid);
+  const outward = Vec3.sub(center, polyhedronCentroid(p));
   if (Vec3.dot(n, outward) < 0) return Vec3.normalize(Vec3.neg(n));
   return Vec3.normalize(n);
 }

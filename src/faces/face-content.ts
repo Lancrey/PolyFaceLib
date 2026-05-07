@@ -50,10 +50,10 @@ export function applyFaceContent(
 
   switch (content.type) {
     case 'text': {
-      const span = document.createElement('div');
-      span.className = `pf-face__text ${content.className ?? ''}`.trim();
-      span.textContent = content.text;
-      contentEl.appendChild(span);
+      const node = document.createElement('div');
+      node.className = `pf-face__text ${content.className ?? ''}`.trim();
+      node.textContent = content.text;
+      contentEl.appendChild(node);
       return () => { contentEl.innerHTML = ''; };
     }
     case 'image': {

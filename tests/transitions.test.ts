@@ -35,20 +35,18 @@ describe('Transition solver', () => {
     }
   });
 
-  it('cube: navigating right four times returns to starting face', () => {
+  it('cube: cycling visible edge 0 four times returns to starting (face, roll)', () => {
     const p = cube();
     const t = buildTransitionTable(p);
     let face = 0;
     let roll = 0;
-    // Pick edge index that consistently navigates "right" (visible-edge frame
-    // depends on the face; we just iterate the same visible edge index 0
-    // four times — for the cube, it should come back to the starting face).
     for (let i = 0; i < 4; i++) {
       const res = t.get(face, roll, 0);
       face = res.toFace;
       roll = res.toRoll;
     }
     expect(face).toBe(0);
+    expect(roll).toBe(0);
   });
 
   it('tetrahedron: cycling through any edge returns home in 3 steps', () => {
@@ -62,6 +60,36 @@ describe('Transition solver', () => {
       roll = res.toRoll;
     }
     expect(face).toBe(0);
+  });
+
+  it.each([
+    { name: 'cube', build: cube },
+    { name: 'tetrahedron', build: tetrahedron },
+    { name: 'octahedron', build: octahedron },
+    { name: 'dodecahedron', build: dodecahedron },
+    { name: 'icosahedron', build: icosahedron },
+  ])('$name: incoming edge lands diametrically opposite the swipe direction', ({ build }) => {
+    const p = build();
+    const t = buildTransitionTable(p);
+    for (let f = 0; f < p.faces.length; f++) {
+      const N = p.faces[f]!.vertexIndices.length;
+      for (let r = 0; r < N; r++) {
+        for (let v = 0; v < N; v++) {
+          const res = t.get(f, r, v);
+          // Reverse the navigation: from the destination, the visible edge that
+          // would bring us back must be roughly opposite the one we crossed.
+          const back = t.get(res.toFace, res.toRoll, 0); // any edge to fetch the table
+          void back;
+          // Specifically check that re-navigating the "incoming" visible slot
+          // returns to the original face (a 1-step round trip).
+          const NTo = p.faces[res.toFace]!.vertexIndices.length;
+          const halfTurn = Math.round(NTo / 2);
+          const incomingVisible = ((v + halfTurn) % NTo + NTo) % NTo;
+          const round = t.get(res.toFace, res.toRoll, incomingVisible);
+          expect(round.toFace).toBe(f);
+        }
+      }
+    }
   });
 
   it('orientationOf and transition target are aligned (round-trip via inverse navigation)', () => {
