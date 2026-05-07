@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — transparency</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Transparence graduelle</h1>
+      <p>Faces de fond visibles à travers les faces avant.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 8/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({
+      container: '#viewer',
+      polyhedron: Polyhedra.cube(),
+      transparency: { enabled: true, nearOpacity: 0.4, farOpacity: 0.95, curve: 'smoothstep' },
+    });
+    for (let i = 0; i < 6; i++) view.setFace(i, { type: 'text', text: `Face ${i + 1}` });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

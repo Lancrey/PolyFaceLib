@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — photo gallery</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Galerie — cube de 6 photos</h1>
+      <p>Démo du type d'image avec object-fit.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 6/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({ container: '#viewer', polyhedron: Polyhedra.cube() });
+    const photos = [
+      'https://picsum.photos/seed/a/600/600',
+      'https://picsum.photos/seed/b/600/600',
+      'https://picsum.photos/seed/c/600/600',
+      'https://picsum.photos/seed/d/600/600',
+      'https://picsum.photos/seed/e/600/600',
+      'https://picsum.photos/seed/f/600/600',
+    ];
+    photos.forEach((src, i) => view.setFace(i, { type: 'image', src, fit: 'cover' }));
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

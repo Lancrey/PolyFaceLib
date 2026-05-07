@@ -1,0 +1,18 @@
+/* Shared example styles */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; background: #1a1a24; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.example-page { display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh; }
+header { padding: 16px 24px; background: rgba(255, 255, 255, 0.04); border-bottom: 1px solid rgba(255,255,255,0.1); }
+header h1 { margin: 0; font-size: 20px; }
+header p { margin: 4px 0 0; color: rgba(255,255,255,0.6); font-size: 14px; }
+footer { padding: 12px 24px; color: rgba(255,255,255,0.4); font-size: 12px; }
+.viewer { width: 100%; height: 100%; min-height: 480px; }
+.face-demo { padding: 24px; }
+.face-demo h2 { margin: 0 0 8px; font-size: 24px; }
+.face-demo p { margin: 0; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.swatch-front { background: linear-gradient(135deg, #6366f1, #ec4899); }
+.swatch-back  { background: linear-gradient(135deg, #14b8a6, #06b6d4); }
+.swatch-right { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+.swatch-left  { background: linear-gradient(135deg, #84cc16, #14b8a6); }
+.swatch-top   { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
+.swatch-bot   { background: linear-gradient(135deg, #ec4899, #f43f5e); }

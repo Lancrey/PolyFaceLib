@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — dashboard</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+  <style>
+    .widget { padding: 24px; height: 100%; box-sizing: border-box; }
+    .widget h2 { margin: 0 0 16px; font-size: 18px; }
+    .stat { font-size: 36px; font-weight: 700; }
+    .form input, .form button { display: block; width: 100%; padding: 8px; margin: 8px 0; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Dashboard — 6 widgets HTML interactifs</h1>
+      <p>Inputs, boutons, scroll natif — tout fonctionne dans la face active.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 7/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({ container: '#viewer', polyhedron: Polyhedra.cube() });
+    view.setFace(0, { type: 'html', html: `<div class="widget swatch-front"><h2>Sales</h2><div class="stat">$12,450</div><p>+5.2% this week</p></div>` });
+    view.setFace(1, { type: 'html', html: `<div class="widget swatch-back"><h2>Active users</h2><div class="stat">1,827</div></div>` });
+    view.setFace(2, { type: 'html', html: `<div class="widget swatch-right form"><h2>New entry</h2><input placeholder="Name" /><input placeholder="Email" type="email" /><button>Submit</button></div>` });
+    view.setFace(3, { type: 'html', html: `<div class="widget swatch-left"><h2>Notes</h2><textarea style="width:100%;height:60%"></textarea></div>` });
+    view.setFace(4, { type: 'html', html: `<div class="widget swatch-top"><h2>System</h2><ul><li>CPU: 23%</li><li>Mem: 1.2 GB</li><li>Net: 230 KB/s</li></ul></div>` });
+    view.setFace(5, { type: 'html', html: `<div class="widget swatch-bot"><h2>Logs</h2><pre style="font-size:11px">[12:01] ok\n[12:03] warning: latency\n[12:10] ok\n[12:12] ok</pre></div>` });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

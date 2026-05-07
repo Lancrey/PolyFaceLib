@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — custom polyhedron</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Polyèdre custom — pyramide carrée (5 faces)</h1>
+      <p>Définition manuelle des sommets et des faces.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 5/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib } from '../dist/index.js';
+    const polyhedron = {
+      vertices: [
+        [-1, 0, -1], // 0 base back-left
+        [ 1, 0, -1], // 1 base back-right
+        [ 1, 0,  1], // 2 base front-right
+        [-1, 0,  1], // 3 base front-left
+        [ 0, 1.4, 0], // 4 apex
+      ],
+      faces: [
+        // Base (square, viewed from below — clockwise from outside means CCW from above)
+        { vertexIndices: [0, 1, 2, 3], upHint: [0, 0, 1] },
+        // Four triangles (apex + 2 base vertices, clockwise from outside)
+        { vertexIndices: [4, 1, 0], upHint: [0, 1, 0] },
+        { vertexIndices: [4, 2, 1], upHint: [0, 1, 0] },
+        { vertexIndices: [4, 3, 2], upHint: [0, 1, 0] },
+        { vertexIndices: [4, 0, 3], upHint: [0, 1, 0] },
+      ],
+    };
+    const view = new PolyFaceLib({ container: '#viewer', polyhedron, perspective: 900 });
+    view.setFace(0, { type: 'text', text: 'BASE' });
+    for (let i = 1; i <= 4; i++) view.setFace(i, { type: 'text', text: `Slope ${i}` });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>
