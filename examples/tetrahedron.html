@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — tetrahedron</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Tétraèdre — 4 faces triangulaires</h1>
+      <p>Démontre le clip-path et la safe-area pour faces non rectangulaires.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 2/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({
+      container: '#viewer',
+      polyhedron: Polyhedra.tetrahedron(),
+      perspective: 900,
+    });
+    const colors = ['front', 'back', 'right', 'left'];
+    for (let i = 0; i < 4; i++) {
+      view.setFace(i, {
+        type: 'html',
+        html: `<div class="face-demo swatch-${colors[i]}" style="height:100%">
+          <h2>Face ${i + 1}</h2>
+          <p>Triangulaire</p>
+        </div>`,
+      });
+    }
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

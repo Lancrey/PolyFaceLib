@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — mobile gestures</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Gestures tactiles</h1>
+      <p>Forcez la zone arête pour le swipe (par défaut sur mobile).</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 10/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({
+      container: '#viewer',
+      polyhedron: Polyhedra.cube(),
+      interaction: { swipeMode: 'edge' },
+      swipeThreshold: 24,
+    });
+    for (let i = 0; i < 6; i++) view.setFace(i, { type: 'text', text: `Touch face ${i + 1}` });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

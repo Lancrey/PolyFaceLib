@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — long content</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+  <style>article { padding: 24px; }</style>
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Scroll natif intra-face</h1>
+      <p>Le swipe au centre scrolle ; le swipe vers une arête navigue.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 9/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({ container: '#viewer', polyhedron: Polyhedra.cube() });
+    const long = Array.from({ length: 30 }, (_, i) => `<p>Paragraph ${i + 1}: lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>`).join('');
+    for (let i = 0; i < 6; i++) view.setFace(i, { type: 'html', html: `<article class="swatch-front"><h2>Article ${i + 1}</h2>${long}</article>` });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

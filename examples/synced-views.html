@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — synced views</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+  <style>
+    main { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 24px; }
+    .viewer { min-height: 400px; }
+  </style>
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Synchronisation multi-vues — mode parallel</h1>
+      <p>Naviguez sur l'un, l'autre suit.</p>
+    </header>
+    <main>
+      <div class="viewer" id="left"></div>
+      <div class="viewer" id="right"></div>
+    </main>
+    <footer>Demo 13/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra, sync } from '../dist/index.js';
+    const a = new PolyFaceLib({ container: '#left', polyhedron: Polyhedra.cube() });
+    const b = new PolyFaceLib({ container: '#right', polyhedron: Polyhedra.cube() });
+    for (let i = 0; i < 6; i++) {
+      a.setFace(i, { type: 'text', text: `A:${i + 1}` });
+      b.setFace(i, { type: 'text', text: `B:${i + 1}` });
+    }
+    sync([a, b], { mode: 'parallel', syncAnimation: true });
+    a.start();
+    b.start();
+  </script>
+</body>
+</html>

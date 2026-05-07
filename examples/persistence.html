@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — persistence</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Persistance — localStorage</h1>
+      <p>Naviguez puis rechargez la page : la face active est restaurée.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 14/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({
+      container: '#viewer',
+      polyhedron: Polyhedra.cube(),
+      persistence: {
+        enabled: true,
+        storage: 'localStorage',
+        key: 'polyfacelib:demo',
+        persist: ['face', 'scroll'],
+        debounce: 200,
+      },
+    });
+    await view.ready;
+    for (let i = 0; i < 6; i++) view.setFace(i, { type: 'text', text: `Persisted face ${i + 1}` });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

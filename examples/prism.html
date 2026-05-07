@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — prism</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Prisme hexagonal</h1>
+      <p>2 faces hexagonales (haut/bas) + 6 faces rectangulaires.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 4/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({
+      container: '#viewer',
+      polyhedron: Polyhedra.prism({ sides: 6, height: 2 }),
+      perspective: 1000,
+    });
+    view.setFace(0, { type: 'text', text: 'TOP' });
+    view.setFace(1, { type: 'text', text: 'BOTTOM' });
+    for (let i = 2; i < 8; i++) view.setFace(i, { type: 'text', text: `Side ${i - 1}` });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

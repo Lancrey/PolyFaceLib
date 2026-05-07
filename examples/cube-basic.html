@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — cube-basic</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Cube — 6 textes</h1>
+      <p>Cliquez près d'une arête, swipe ou utilisez les flèches pour naviguer.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 1/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({
+      container: '#viewer',
+      polyhedron: Polyhedra.cube(),
+      perspective: 900,
+    });
+    const labels = ['Front', 'Back', 'Right', 'Left', 'Top', 'Bottom'];
+    const swatches = ['front', 'back', 'right', 'left', 'top', 'bot'];
+    labels.forEach((label, i) => {
+      view.setFace(i, {
+        type: 'html',
+        html: `<div class="face-demo swatch-${swatches[i]}" style="height:100%">
+          <h2>${label}</h2>
+          <p>Face ${i + 1} of 6</p>
+        </div>`,
+      });
+    });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

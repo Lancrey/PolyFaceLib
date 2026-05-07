@@ -1,0 +1,75 @@
+{
+  "name": "polyfacelib",
+  "version": "0.1.0",
+  "description": "A polyhedral content viewer for the web. Organize content on the faces of a cube, dodecahedron, or any convex polyhedron — proprietary 3D engine, full DOM interactivity, zero runtime dependencies.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./presets": {
+      "import": "./dist/presets.js",
+      "require": "./dist/presets.cjs",
+      "types": "./dist/presets.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "docs": "typedoc src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "polyhedron",
+    "cube",
+    "3d",
+    "viewer",
+    "matrix3d",
+    "dom",
+    "navigation",
+    "ui",
+    "carousel",
+    "dodecahedron",
+    "icosahedron"
+  ],
+  "author": "Lancrey",
+  "license": "MIT",
+  "homepage": "https://github.com/Lancrey/polyfacelib",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lancrey/polyfacelib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lancrey/polyfacelib/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "jsdom": "^29.1.1",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  }
+}

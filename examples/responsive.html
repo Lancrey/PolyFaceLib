@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — responsive</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Adaptation mobile / tablet / desktop</h1>
+      <p>Redimensionnez la fenêtre pour observer les breakpoints.</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer id="footer">Demo 11/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    const view = new PolyFaceLib({
+      container: '#viewer',
+      polyhedron: Polyhedra.cube(),
+    });
+    for (let i = 0; i < 6; i++) view.setFace(i, { type: 'text', text: `Face ${i + 1}` });
+    view.on('resize', e => { document.getElementById('footer').textContent = `Demo 11/14 — width ${Math.round(e.width)} / size ${Math.round(e.size)}`; });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PolyFaceLib — React integration</title>
+  <link rel="stylesheet" href="./_shared.css" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+</head>
+<body>
+  <div class="example-page">
+    <header>
+      <h1>Intégration React via mount</h1>
+      <p>Utilisation du type 'component' pour monter un sous-arbre React (h() pour rester sans JSX).</p>
+    </header>
+    <main><div class="viewer" id="viewer"></div></main>
+    <footer>Demo 12/14</footer>
+  </div>
+  <script type="module">
+    import { PolyFaceLib, Polyhedra } from '../dist/index.js';
+    import React from 'https://esm.sh/react@18';
+    import ReactDOM from 'https://esm.sh/react-dom@18/client';
+    const view = new PolyFaceLib({ container: '#viewer', polyhedron: Polyhedra.cube() });
+    const Counter = () => {
+      const [c, setC] = React.useState(0);
+      return React.createElement('div', { style: { padding: 24 } },
+        React.createElement('h2', null, 'React counter'),
+        React.createElement('p', null, `Count: ${c}`),
+        React.createElement('button', { onClick: () => setC(c + 1) }, 'Increment'));
+    };
+    view.setFace(0, {
+      type: 'component',
+      mount: (el) => {
+        const root = ReactDOM.createRoot(el);
+        root.render(React.createElement(Counter));
+        return () => root.unmount();
+      },
+    });
+    for (let i = 1; i < 6; i++) view.setFace(i, { type: 'text', text: `Plain face ${i + 1}` });
+    view.start();
+    document.getElementById('viewer').focus();
+  </script>
+</body>
+</html>
