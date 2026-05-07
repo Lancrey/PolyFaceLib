@@ -20,6 +20,7 @@ export function attachKeyboardListeners(
 ): () => void {
   if (config.enabled === false) return () => {};
   const mode: KeyboardMode = config.mode ?? 'arrows';
+  let tabCursor = 0;
 
   function onKey(e: KeyboardEvent) {
     if (mode === 'arrows') {
@@ -34,25 +35,23 @@ export function attachKeyboardListeners(
     }
     if (mode === 'numeric') {
       const n = getEdgeCount();
-      const code = e.keyCode || e.key.charCodeAt(0);
       const digit = parseInt(e.key, 10);
       if (!Number.isNaN(digit) && digit >= 1 && digit <= n) {
         handlers.onEdge(digit - 1);
         e.preventDefault();
       }
-      void code;
       return;
     }
     if (mode === 'tab') {
       const n = getEdgeCount();
       if (e.key === 'Tab') {
-        const dir = e.shiftKey ? -1 : 1;
-        // The host caller manages focused-edge state externally; emit edge events.
-        // For simplicity, advance by 1 from edge 0.
-        handlers.onEdge(((dir + n) % n) + 0);
+        // Cycle through the visible edges. Host manages the focused-edge cursor
+        // externally if it needs richer tab semantics — the harness here just
+        // advances forward (or backward with Shift) and confirms via Enter.
+        tabCursor = (tabCursor + (e.shiftKey ? -1 : 1) + n) % n;
         e.preventDefault();
       } else if (e.key === 'Enter') {
-        handlers.onEdge(0);
+        handlers.onEdge(((tabCursor % n) + n) % n);
         e.preventDefault();
       }
     }

@@ -90,7 +90,8 @@ export function applyStage(elements: StageElements, opts: ApplyStageOptions): vo
   const { faces, viewports } = elements;
   const baseZ = opts.baseZ ?? 0;
 
-  // Sort indices by depth descending: deeper (more negative depth) → smaller z-index.
+  // Sort indices by depth ascending: smaller depth (more negative viewZ, farther
+  // from camera) gets the lower z-index so closer faces render on top.
   const depthOrder = opts.frames
     .map((f, i) => ({ i, depth: f.depth }))
     .sort((a, b) => a.depth - b.depth);

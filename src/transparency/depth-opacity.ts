@@ -53,11 +53,13 @@ export function applyTransparency(
       continue;
     }
     if (range <= 1e-6) {
-      f.opacity = merged.farOpacity;
+      f.opacity = merged.nearOpacity;
       continue;
     }
+    // depth: larger value = closer to camera (less negative viewZ).
+    // t = 0 → farthest face → farOpacity; t = 1 → closest face → nearOpacity.
     const t = (f.depth - minDepth) / range;
     const eased = applyCurve(merged.curve, t);
-    f.opacity = merged.nearOpacity + (merged.farOpacity - merged.nearOpacity) * eased;
+    f.opacity = merged.farOpacity + (merged.nearOpacity - merged.farOpacity) * eased;
   }
 }

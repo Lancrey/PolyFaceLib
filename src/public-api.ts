@@ -17,7 +17,7 @@ import { buildStage, applyStage, destroyStage } from './render/stage';
 import type { StageElements } from './render/stage';
 import { computeSize, classify, DEFAULT_BREAKPOINTS, StageResizeObserver } from './render/responsive';
 import type { BreakpointsConfig, SizingMode, Breakpoint } from './render/responsive';
-import { applyTransparency, DEFAULT_TRANSPARENCY } from './transparency/depth-opacity';
+import { applyTransparency } from './transparency/depth-opacity';
 import type { TransparencyConfig } from './transparency/depth-opacity';
 import { buildFaceZones } from './input/zones';
 import type { FaceZones } from './input/zones';
@@ -109,7 +109,7 @@ export class PolyFaceLib {
   private faceScrollState = new Map<number, [number, number]>();
   private scrollListeners: Array<() => void> = [];
   private pendingNav: number | null = null;
-  private pendingDirection: 'up' | 'down' | 'left' | 'right' | null = null;
+  private announcedFace = -1;
 
   // Input cleanup
   private pointerCleanup: (() => void) | null = null;
@@ -379,11 +379,12 @@ export class PolyFaceLib {
     });
     if (prevented) return Promise.resolve();
     if (!animate) {
+      const fromFace = this.currentFace;
       this.currentRotation = target;
       this.currentFace = index;
       this.currentRoll = 0;
       this.animation = null;
-      this.emitter.emit('afterNavigate', { from: this.currentFace, to: index });
+      this.emitter.emit('afterNavigate', { from: fromFace, to: index });
       this.render(performance.now());
       this.refreshControlsAndInputs();
       this.schedulePersist();
@@ -504,12 +505,6 @@ export class PolyFaceLib {
           this.navigateEdge(next).then(resolve).catch(() => resolve());
           return;
         }
-        if (this.pendingDirection !== null) {
-          const dir = this.pendingDirection;
-          this.pendingDirection = null;
-          this.navigate(dir).then(resolve).catch(() => resolve());
-          return;
-        }
         resolve();
       };
 
@@ -579,8 +574,12 @@ export class PolyFaceLib {
     this.elements.root.style.setProperty('--pf-face-sides', String(this.orientations[this.currentFace]!.rollSteps));
     this.elements.root.style.setProperty('--pf-face-size', `${this.size}px`);
 
-    // Live region announcement
-    this.elements.liveRegion.textContent = `Face ${this.currentFace + 1} of ${this.polyhedron.faces.length}`;
+    // Live region: only announce when the active face actually changes,
+    // otherwise screen readers see a new message every animation frame.
+    if (this.announcedFace !== this.currentFace) {
+      this.announcedFace = this.currentFace;
+      this.elements.liveRegion.textContent = `Face ${this.currentFace + 1} of ${this.polyhedron.faces.length}`;
+    }
   }
 
   private getActiveZones(): FaceZones {
@@ -652,5 +651,3 @@ export class PolyFaceLib {
     }
   }
 }
-
-void DEFAULT_TRANSPARENCY; // keep import live if user-side defaults are needed
