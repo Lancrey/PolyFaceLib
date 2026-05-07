@@ -6,7 +6,32 @@ header { padding: 16px 24px; background: rgba(255, 255, 255, 0.04); border-botto
 header h1 { margin: 0; font-size: 20px; }
 header p { margin: 4px 0 0; color: rgba(255,255,255,0.6); font-size: 14px; }
 footer { padding: 12px 24px; color: rgba(255,255,255,0.4); font-size: 12px; }
-.viewer { width: 100%; height: 100%; min-height: 480px; }
+main {
+  /* Center the viewer inside the available space and expose the cell as a
+     CSS container so the viewer can size itself relative to it. */
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  min-height: 0;
+  container-type: size;
+}
+.viewer {
+  /* Largest square that fits in the cell. Cube faces are square; triangular
+     and pentagonal faces produced by buildFaceModel sit inside square
+     bounding boxes too, so a square viewer is a sensible default for most
+     polyhedra. Non-cube demos that genuinely want full-bleed can opt out
+     with .viewer--free. */
+  aspect-ratio: 1 / 1;
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+  min-width: 280px;
+  min-height: 280px;
+}
+.viewer--free {
+  aspect-ratio: auto;
+  width: 100cqw;
+  height: 100cqh;
+}
 .face-demo { padding: 24px; }
 .face-demo h2 { margin: 0 0 8px; font-size: 24px; }
 .face-demo p { margin: 0; color: rgba(255,255,255,0.7); line-height: 1.6; }
