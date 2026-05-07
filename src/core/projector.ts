@@ -134,7 +134,12 @@ export class Projector {
       local2D.push([rotated[0] * scale, -rotated[1] * scale]); // CSS Y goes down
     }
 
-    // Bounding rect
+    // Bounding rect — sized symmetrically around the centroid (which is at
+    // local (0,0) by construction) so the polygon always fits inside the face
+    // element's box. For asymmetric polygons (e.g. triangles, where the
+    // centroid sits at 1/3 of the height), using `maxX - minX` would put
+    // vertices outside [0, w] in the clip-path coordinate system and clip the
+    // apex.
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
     for (const [x, y] of local2D) {
       if (x < minX) minX = x;
@@ -142,8 +147,10 @@ export class Projector {
       if (y < minY) minY = y;
       if (y > maxY) maxY = y;
     }
-    const width = maxX - minX;
-    const height = maxY - minY;
+    const halfW = Math.max(Math.abs(minX), Math.abs(maxX));
+    const halfH = Math.max(Math.abs(minY), Math.abs(maxY));
+    const width = halfW * 2;
+    const height = halfH * 2;
 
     // Inscribed rectangle: simple heuristic — largest centered axis-aligned rect inside the polygon.
     const inscribed = inscribedAxisAlignedRect(local2D);

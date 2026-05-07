@@ -30,6 +30,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "examples": "node scripts/serve-examples.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
