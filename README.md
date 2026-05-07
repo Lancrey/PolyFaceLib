@@ -43,6 +43,30 @@ import { PolyFaceLib, Polyhedra } from 'polyfacelib';
 import 'polyfacelib/styles.css';
 ```
 
+### Running the examples locally
+
+The `examples/` directory contains standalone HTML demos. They use ES module
+imports from `../dist/`, so two things are required:
+
+1. The library has to be built (the `dist/` directory is gitignored).
+2. The pages have to be served over HTTP — opening them via `file://` will
+   fail because browsers block ES module imports from local files.
+
+A one-shot dev server is included that does both:
+
+```bash
+npm install
+npm run examples           # builds dist/ then serves http://localhost:5173/examples/
+```
+
+If you prefer to do it by hand:
+
+```bash
+npm install && npm run build
+npx --yes http-server -p 5173 .
+# then open http://localhost:5173/examples/
+```
+
 ---
 
 ## Quick start

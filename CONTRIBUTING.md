@@ -33,7 +33,8 @@ npm install
 ### Common commands
 
 ```bash
-npm run dev          # watch-mode build + serves /examples on localhost
+npm run dev          # watch-mode rebuild of /dist (no HTTP server)
+npm run examples     # build /dist and serve /examples on http://localhost:5173/
 npm run build        # production build (ESM + CJS + d.ts) into /dist
 npm run test         # run the full test suite (unit + browser)
 npm run test:watch   # watch-mode tests
