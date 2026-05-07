@@ -60,6 +60,29 @@ describe('PolyFaceLib', () => {
     view.destroy();
   });
 
+  it('projects every face inside a sane fraction of the viewport', () => {
+    // Regression: the model matrix used to also scale the already-pixel-sized
+    // face element, projecting every corner ~30× the viewport size off-screen.
+    const c = makeContainer();
+    const view = new PolyFaceLib({ container: c, polyhedron: cube() });
+    const faces = c.querySelectorAll('.pf-face');
+    expect(faces.length).toBe(6);
+    for (const f of faces) {
+      const w = parseFloat((f as HTMLElement).style.getPropertyValue('--pf-face-w'));
+      const h = parseFloat((f as HTMLElement).style.getPropertyValue('--pf-face-h'));
+      const m = (f as HTMLElement).style.transform.match(/matrix3d\(([^)]+)\)/)![1].split(',').map(Number);
+      for (const [px, py] of [[w / 2, h / 2], [-w / 2, h / 2], [w / 2, -h / 2], [-w / 2, -h / 2]]) {
+        const tx = m[0]! * px + m[4]! * py + m[12]!;
+        const ty = m[1]! * px + m[5]! * py + m[13]!;
+        const tw = m[3]! * px + m[7]! * py + m[15]!;
+        // Container rect is 400×400, so corners must land within ±400 px of center.
+        expect(Math.abs(tx / tw)).toBeLessThan(400);
+        expect(Math.abs(ty / tw)).toBeLessThan(400);
+      }
+    }
+    view.destroy();
+  });
+
   it('goToFace(animate:false) reports the previous face in afterNavigate.from', async () => {
     const c = makeContainer();
     const view = new PolyFaceLib({ container: c, polyhedron: cube() });
