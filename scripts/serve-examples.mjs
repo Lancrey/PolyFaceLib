@@ -50,7 +50,13 @@ async function send(res, path) {
       res.writeHead(403); res.end('Directory listing disabled.'); return;
     }
     const body = await readFile(path);
-    res.writeHead(200, { 'Content-Type': MIME[extname(path)] ?? 'application/octet-stream' });
+    // Disable browser caching: rebuilds happen on every `npm run examples`
+    // and we don't want the browser serving a stale dist/index.js.
+    res.writeHead(200, {
+      'Content-Type': MIME[extname(path)] ?? 'application/octet-stream',
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      'Pragma': 'no-cache',
+    });
     res.end(body);
   } catch (err) {
     if (err.code === 'ENOENT') { res.writeHead(404); res.end('Not found'); return; }
