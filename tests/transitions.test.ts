@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { cube, tetrahedron, octahedron, dodecahedron, icosahedron } from '../src/polyhedra/presets';
 import { buildTransitionTable } from '../src/polyhedra/transitions';
-import { Quat } from '../src/core/math/quat';
+import { Quat } from '../src/math/quat';
 import type { Polyhedron } from '../src/polyhedra/polyhedron';
 
 function buildAndStep(p: Polyhedron) {

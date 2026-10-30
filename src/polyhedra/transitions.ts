@@ -1,6 +1,6 @@
-import { Vec3 } from '../core/math/vec3';
-import { Quat } from '../core/math/quat';
-import type { Quat as QuatT } from '../core/math/quat';
+import { Vec3 } from '../math/vec3';
+import { Quat } from '../math/quat';
+import type { Quat as QuatT } from '../math/quat';
 import { canonicalOrientation, rollRotation } from './orientations';
 import type { CanonicalOrientation } from './orientations';
 import { buildAdjacency } from './adjacency';

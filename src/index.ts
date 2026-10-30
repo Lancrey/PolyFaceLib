@@ -48,6 +48,6 @@ export type { SyncMode, SyncOptions, SyncEvent, SyncLink } from './sync/sync';
 export { Easing } from './core/animator';
 export type { EasingFn } from './core/animator';
 
-export type { Vec3 as Vec3T } from './core/math/vec3';
-export type { Quat as QuatT } from './core/math/quat';
-export type { Mat4 as Mat4T } from './core/math/mat4';
+export type { Vec3 as Vec3T } from './math/vec3';
+export type { Quat as QuatT } from './math/quat';
+export type { Mat4 as Mat4T } from './math/mat4';

@@ -1,5 +1,5 @@
-import { Vec3 } from '../core/math/vec3';
-import type { Vec3 as Vec3T } from '../core/math/vec3';
+import { Vec3 } from '../math/vec3';
+import type { Vec3 as Vec3T } from '../math/vec3';
 
 export interface PolyhedronFace {
   /** Indices of the polygon's vertices in the parent `Polyhedron.vertices` array. Must list vertices in order, viewed from outside (clockwise). */
