@@ -43,8 +43,8 @@ JS/TS library providing a visualization component where content is organized on 
 ```
 polyfacelib/
 ├── src/
+│   ├── math/                # vec3, vec4, mat4, quat, projection
 │   ├── core/
-│   │   ├── math/            # vec3, mat4, quat, projection
 │   │   ├── projector.ts     # 3D → matrix3d CSS
 │   │   ├── animator.ts      # rotation interpolation (slerp)
 │   │   └── frame.ts         # rAF loop
@@ -70,13 +70,15 @@ polyfacelib/
 │   │   ├── clip.ts          # CSS clip-path per face shape
 │   │   └── responsive.ts    # ResizeObserver + breakpoints
 │   ├── faces/
-│   │   ├── face-content.ts  # setFace API
-│   │   ├── text.ts
-│   │   ├── image.ts
-│   │   ├── html.ts
-│   │   └── component.ts
+│   │   └── face-content.ts  # setFace API (text, image, html, component)
 │   ├── transparency/
 │   │   └── depth-opacity.ts
+│   ├── persistence/
+│   │   └── persistence.ts   # localStorage / sessionStorage / custom adapter
+│   ├── sync/
+│   │   └── sync.ts          # multi-view synchronization
+│   ├── events.ts
+│   ├── styles.css
 │   ├── public-api.ts
 │   └── index.ts
 ├── examples/

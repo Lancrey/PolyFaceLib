@@ -129,6 +129,13 @@ No dynamic `import()`, no string-built module paths, no `tsconfig` `paths` alias
 - **Proposal:** one workflow running `npm ci && npm run typecheck && npm test && npm run build`.
 - **Value / risk:** high / low · **Behaviour:** preserving.
 
+### R4 — CONTRIBUTING describes property-based tests that do not exist
+- **Evidence:** CONTRIBUTING.md "Testing → 1. Math" says the math is tested with `vitest` + `fast-check`; `grep -rn fast-check package.json tests` returns nothing (found during Phase 3).
+- **Proposal:** either add `fast-check` and the five listed invariants as tests, or reword the section to describe the existing example-based tests.
+- **Impact:** adding the tests may expose float-tolerance edge cases in `quat.ts`.
+- **How to verify afterwards:** test count rises and passes; or doc matches `tests/math.test.ts`.
+- **Value / risk:** med / low · **Behaviour:** preserving.
+
 ### Suspected, not confirmed
 - `src/core/frame.ts` uses `requestAnimationFrame` (guarded by `typeof`), which slightly contradicts "core knows nothing about the DOM". Whether it should move to `render/` is a design call; it would not affect behaviour — settled by asking the author.
 - `public-api.ts` (657 lines) concentrates lifecycle, navigation, persistence wiring and rendering in one class. Splitting it is a logic refactor, out of scope — settled by a coverage report (needs R2) showing which parts are untested before any split.
