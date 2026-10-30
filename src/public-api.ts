@@ -1,5 +1,5 @@
-import { Quat } from './core/math/quat';
-import type { Quat as QuatT } from './core/math/quat';
+import { Quat } from './math/quat';
+import type { Quat as QuatT } from './math/quat';
 import { Easing, startQuatAnimation, stepQuatAnimation, animationProgress } from './core/animator';
 import type { EasingFn, QuatAnimationState } from './core/animator';
 import { FrameLoop } from './core/frame';

@@ -1,0 +1,213 @@
+{
+  "repo": "/home/claude/polyfacelib",
+  "is_git_repo": true,
+  "file_count": 70,
+  "excluded_dirs": [],
+  "languages": {
+    "by_files": {
+      "TypeScript": 44,
+      "HTML": 15,
+      "Markdown": 3,
+      "JSON": 3,
+      "CSS": 2,
+      "JavaScript": 1
+    },
+    "by_lines": {
+      "TypeScript": 4209,
+      "JSON": 3405,
+      "Markdown": 1234,
+      "HTML": 553,
+      "CSS": 166,
+      "JavaScript": 80
+    },
+    "dominant_code_languages": [
+      [
+        "TypeScript",
+        44
+      ],
+      [
+        "JavaScript",
+        1
+      ]
+    ]
+  },
+  "path_pinning_files": {
+    "manifest": [
+      "package.json"
+    ],
+    "typescript": [
+      "tsconfig.json"
+    ],
+    "test": [
+      "vitest.config.ts"
+    ],
+    "docs_guidance": [
+      "CONTRIBUTING.md",
+      "README.md"
+    ]
+  },
+  "manifest_entry_points": [
+    {
+      "kind": "package.json:main",
+      "ref": "./dist/index.cjs"
+    },
+    {
+      "kind": "package.json:module",
+      "ref": "./dist/index.js"
+    },
+    {
+      "kind": "package.json:types",
+      "ref": "./dist/index.d.ts"
+    },
+    {
+      "kind": "package.json:exports",
+      "ref": "{\".\": {\"types\": \"./dist/index.d.ts\", \"import\": \"./dist/index.js\", \"require\": \"./dist/index.cjs\"}, \"./styles.css\": \"./dist/styles.css\", \"./presets\": {\"types\": \"./dist/presets.d.ts\", \"import\": \"./dist/presets.js\", \"require\": \"./dist/presets.cjs\"}}"
+    },
+    {
+      "kind": "npm script:build",
+      "ref": "tsup"
+    },
+    {
+      "kind": "npm script:dev",
+      "ref": "tsup --watch"
+    },
+    {
+      "kind": "npm script:examples",
+      "ref": "node scripts/serve-examples.mjs"
+    },
+    {
+      "kind": "npm script:typecheck",
+      "ref": "tsc --noEmit"
+    },
+    {
+      "kind": "npm script:test",
+      "ref": "vitest run"
+    },
+    {
+      "kind": "npm script:test:watch",
+      "ref": "vitest"
+    },
+    {
+      "kind": "npm script:test:coverage",
+      "ref": "vitest run --coverage"
+    },
+    {
+      "kind": "npm script:lint",
+      "ref": "eslint . --ext .ts"
+    },
+    {
+      "kind": "npm script:format",
+      "ref": "prettier --write \"src/**/*.{ts,tsx,css}\""
+    },
+    {
+      "kind": "npm script:docs",
+      "ref": "typedoc src/index.ts"
+    },
+    {
+      "kind": "npm script:prepublishOnly",
+      "ref": "npm run build"
+    }
+  ],
+  "probable_entry_files": [
+    "src/core/math/index.ts",
+    "src/index.ts",
+    "src/polyhedra/index.ts",
+    "src/polyhedra/presets/index.ts"
+  ],
+  "test_files": [
+    "tests/api.test.ts",
+    "tests/math.test.ts",
+    "tests/persistence.test.ts",
+    "tests/polyhedra.test.ts",
+    "tests/transitions.test.ts",
+    "tests/transparency.test.ts",
+    "tests/zones.test.ts"
+  ],
+  "test_file_count": 7,
+  "tree": {
+    "dirs": {
+      "examples": {
+        "files": 16,
+        "code_files": 0,
+        "lines": 0
+      },
+      "scripts": {
+        "files": 1,
+        "code_files": 1,
+        "lines": 80
+      },
+      "src": {
+        "files": 36,
+        "code_files": 35,
+        "lines": 3537
+      },
+      "src/core": {
+        "files": 9,
+        "code_files": 9,
+        "lines": 822
+      },
+      "src/core/math": {
+        "files": 6,
+        "code_files": 6,
+        "lines": 424
+      },
+      "src/faces": {
+        "files": 1,
+        "code_files": 1,
+        "lines": 87
+      },
+      "src/input": {
+        "files": 4,
+        "code_files": 4,
+        "lines": 454
+      },
+      "src/persistence": {
+        "files": 1,
+        "code_files": 1,
+        "lines": 172
+      },
+      "src/polyhedra": {
+        "files": 12,
+        "code_files": 12,
+        "lines": 785
+      },
+      "src/polyhedra/presets": {
+        "files": 7,
+        "code_files": 7,
+        "lines": 345
+      },
+      "src/render": {
+        "files": 3,
+        "code_files": 3,
+        "lines": 268
+      },
+      "src/sync": {
+        "files": 1,
+        "code_files": 1,
+        "lines": 131
+      },
+      "src/transparency": {
+        "files": 1,
+        "code_files": 1,
+        "lines": 65
+      },
+      "tests": {
+        "files": 7,
+        "code_files": 7,
+        "lines": 629
+      }
+    },
+    "root_files": [
+      ".gitignore",
+      "CONTRIBUTING.md",
+      "LICENSE",
+      "README.md",
+      "SPECIFICATION.md",
+      "package-lock.json",
+      "package.json",
+      "tsconfig.json",
+      "tsup.config.ts",
+      "vitest.config.ts"
+    ]
+  }
+}

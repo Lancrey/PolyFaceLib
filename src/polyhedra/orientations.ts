@@ -1,7 +1,7 @@
-import { Vec3 } from '../core/math/vec3';
-import type { Vec3 as Vec3T } from '../core/math/vec3';
-import { Quat } from '../core/math/quat';
-import type { Quat as QuatT } from '../core/math/quat';
+import { Vec3 } from '../math/vec3';
+import type { Vec3 as Vec3T } from '../math/vec3';
+import { Quat } from '../math/quat';
+import type { Quat as QuatT } from '../math/quat';
 import { faceNormal, faceCentroid } from './polyhedron';
 import type { Polyhedron } from './polyhedron';
 

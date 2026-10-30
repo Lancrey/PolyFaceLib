@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { buildFaceZones, hitTestZones, pickEdgeByAngle } from '../src/input/zones';
 import type { FaceModel } from '../src/core/projector';
-import { Mat4 } from '../src/core/math/mat4';
+import { Mat4 } from '../src/math/mat4';
 
 function squareFaceModel(size: number): FaceModel {
   const h = size / 2;

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { Vec3 } from '../src/core/math/vec3';
-import { Mat4 } from '../src/core/math/mat4';
-import { Quat } from '../src/core/math/quat';
+import { Vec3 } from '../src/math/vec3';
+import { Mat4 } from '../src/math/mat4';
+import { Quat } from '../src/math/quat';
 
 describe('Vec3', () => {
   it('basic ops', () => {

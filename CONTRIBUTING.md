@@ -53,17 +53,24 @@ Before opening a PR, run `npm run lint && npm run typecheck && npm run test`. CI
 
 ```
 src/
-├── core/         # math, projector, animator, frame loop
+├── math/         # vec3, vec4, mat4, quat, projection — depends on nothing
 ├── polyhedra/    # generic Polyhedron type, validation, adjacency, transition solver, presets
+├── core/         # projector, animator, frame loop
 ├── input/        # pointer, keyboard, controls, click zones
 ├── render/       # DOM stage, clip-paths, responsive
 ├── faces/        # face content adapters (text, image, html, component)
 ├── transparency/ # depth-based opacity
-├── public-api.ts # public exports
-└── index.ts
+├── persistence/  # state persistence and storage adapters
+├── sync/         # multi-view synchronization
+├── events.ts     # event emitter
+├── styles.css    # copied to dist/styles.css at build
+├── public-api.ts # the PolyFaceLib class
+└── index.ts      # public exports
 ```
 
-The boundary that matters most: `core/` and `polyhedra/` know nothing about the DOM. They produce pure data (matrices, transition tables). `render/` and `input/` consume that data and bind it to the browser. Keep this separation when adding code — it's what makes the math testable in isolation.
+Dependency order: `math/` ← `polyhedra/` ← `core/` ← `render/`, `input/` and the other browser-facing folders ← `public-api.ts`. Never import against that order.
+
+The boundary that matters most: `math/`, `polyhedra/` and `core/` know nothing about the DOM. They produce pure data (matrices, transition tables). `render/` and `input/` consume that data and bind it to the browser. Keep this separation when adding code — it's what makes the math testable in isolation.
 
 ---
 
@@ -100,7 +107,7 @@ The boundary that matters most: `core/` and `polyhedra/` know nothing about the 
 
 PolyFaceLib aims for >85% line coverage, but raw coverage isn't the point — the point is that the parts that *can* go subtly wrong are exercised by tests that would catch them. Three areas demand particular care.
 
-### 1. Math (`src/core/math/`)
+### 1. Math (`src/math/`)
 
 Pure functions, fully unit-tested. We use **property-based testing** via `vitest` + `fast-check` for invariants:
 
@@ -110,7 +117,7 @@ Pure functions, fully unit-tested. We use **property-based testing** via `vitest
 - `Mat4.fromQuaternion(q)` then back to quaternion round-trips.
 - Perspective projection of a point at infinity converges to the principal point.
 
-Coverage target on `core/math/`: **100%**.
+Coverage target on `math/`: **100%**.
 
 ### 2. Transition solver (`src/polyhedra/transitions.ts`)
 

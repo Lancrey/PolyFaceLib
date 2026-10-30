@@ -1,0 +1,19 @@
+# core -> polyhedra
+src/core/projector.ts:8:import type { Polyhedron } from '../polyhedra/polyhedron';
+src/core/projector.ts:9:import { faceCentroid, faceNormal } from '../polyhedra/polyhedron';
+src/core/projector.ts:10:import { canonicalOrientation } from '../polyhedra/orientations';
+# polyhedra -> core
+src/polyhedra/orientations.ts:1:import { Vec3 } from '../core/math/vec3';
+src/polyhedra/orientations.ts:2:import type { Vec3 as Vec3T } from '../core/math/vec3';
+src/polyhedra/orientations.ts:3:import { Quat } from '../core/math/quat';
+src/polyhedra/orientations.ts:4:import type { Quat as QuatT } from '../core/math/quat';
+src/polyhedra/presets/prism.ts:2:import type { Vec3 as Vec3T } from '../../core/math/vec3';
+src/polyhedra/presets/dodecahedron.ts:1:import { Vec3 } from '../../core/math/vec3';
+src/polyhedra/presets/dodecahedron.ts:2:import type { Vec3 as Vec3T } from '../../core/math/vec3';
+src/polyhedra/presets/icosahedron.ts:1:import { Vec3 } from '../../core/math/vec3';
+src/polyhedra/presets/icosahedron.ts:2:import type { Vec3 as Vec3T } from '../../core/math/vec3';
+src/polyhedra/polyhedron.ts:1:import { Vec3 } from '../core/math/vec3';
+src/polyhedra/polyhedron.ts:2:import type { Vec3 as Vec3T } from '../core/math/vec3';
+src/polyhedra/transitions.ts:1:import { Vec3 } from '../core/math/vec3';
+src/polyhedra/transitions.ts:2:import { Quat } from '../core/math/quat';
+src/polyhedra/transitions.ts:3:import type { Quat as QuatT } from '../core/math/quat';

@@ -3,8 +3,8 @@ import { cube, tetrahedron, octahedron, dodecahedron, icosahedron, prism } from 
 import { validatePolyhedron, faceNormal, faceCentroid } from '../src/polyhedra/polyhedron';
 import { buildAdjacency } from '../src/polyhedra/adjacency';
 import { canonicalOrientation } from '../src/polyhedra/orientations';
-import { Quat } from '../src/core/math/quat';
-import { Vec3 } from '../src/core/math/vec3';
+import { Quat } from '../src/math/quat';
+import { Vec3 } from '../src/math/vec3';
 
 const presets = [
   { name: 'cube', build: cube, expectedFaces: 6, expectedVerts: 8, expectedEdges: 12 },

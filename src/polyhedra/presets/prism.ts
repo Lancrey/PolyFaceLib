@@ -1,5 +1,5 @@
 import type { Polyhedron, PolyhedronFace } from '../polyhedron';
-import type { Vec3 as Vec3T } from '../../core/math/vec3';
+import type { Vec3 as Vec3T } from '../../math/vec3';
 
 export interface PrismOptions {
   /** Number of polygon sides (>= 3). */

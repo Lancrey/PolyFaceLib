@@ -1,4 +1,4 @@
-import type { Quat as QuatT } from '../core/math/quat';
+import type { Quat as QuatT } from '../math/quat';
 
 export type PersistField = 'face' | 'scroll' | 'rotation';
 

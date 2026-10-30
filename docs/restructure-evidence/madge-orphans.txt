@@ -1,0 +1,7 @@
+- Finding files
+Processed 35 files (908ms) 
+
+core/math/index.ts
+index.ts
+polyhedra/index.ts
+

@@ -1,10 +1,10 @@
-import { Mat4 } from './math/mat4';
-import type { Mat4 as Mat4T } from './math/mat4';
-import { Quat } from './math/quat';
-import type { Quat as QuatT } from './math/quat';
-import { Vec3 } from './math/vec3';
-import type { Vec3 as Vec3T } from './math/vec3';
-import { perspectiveCSS } from './math/projection';
+import { Mat4 } from '../math/mat4';
+import type { Mat4 as Mat4T } from '../math/mat4';
+import { Quat } from '../math/quat';
+import type { Quat as QuatT } from '../math/quat';
+import { Vec3 } from '../math/vec3';
+import type { Vec3 as Vec3T } from '../math/vec3';
+import { perspectiveCSS } from '../math/projection';
 import type { Polyhedron } from '../polyhedra/polyhedron';
 import { faceCentroid, faceNormal } from '../polyhedra/polyhedron';
 import { canonicalOrientation } from '../polyhedra/orientations';

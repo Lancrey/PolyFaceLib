@@ -1,5 +1,5 @@
-import { Quat } from './math/quat';
-import type { Quat as QuatT } from './math/quat';
+import { Quat } from '../math/quat';
+import type { Quat as QuatT } from '../math/quat';
 
 export type EasingFn = (t: number) => number;
 
