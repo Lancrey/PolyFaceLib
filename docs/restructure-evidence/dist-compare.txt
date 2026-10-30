@@ -1,0 +1,20 @@
+# dist before (commit 0b6e7d3) vs after (bc1b533), sha256
+index-CDJjs2vf.d.cts identical
+index-CDJjs2vf.d.ts identical
+index.cjs identical
+index.cjs.map DIFFERENT
+index.d.cts identical
+index.d.ts identical
+index.js identical
+index.js.map DIFFERENT
+presets.cjs DIFFERENT
+presets.cjs.map DIFFERENT
+presets.d.cts identical
+presets.d.ts identical
+presets.js DIFFERENT
+presets.js.map DIFFERENT
+styles.css identical
+# files only after:
+
+# presets.js: same size (4787 bytes); prettified diff = only the minifier's local identifier o<->n,
+# identical after normalising \b[no]\b. presets.cjs same cause. .map files differ only by source paths (src/core/math -> src/math).

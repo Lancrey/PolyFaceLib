@@ -1,0 +1,47 @@
+30 possible stale reference(s) in 12 file(s):
+
+  CONTRIBUTING.md
+    L103   [src/core/math]  ### 1. Math (`src/core/math/`)
+  src/core/animator.ts
+    L1     [math/]  import { Quat } from '../math/quat';
+    L2     [math/]  import type { Quat as QuatT } from '../math/quat';
+  src/core/projector.ts
+    L1     [math/]  import { Mat4 } from '../math/mat4';
+    L2     [math/]  import type { Mat4 as Mat4T } from '../math/mat4';
+    L3     [math/]  import { Quat } from '../math/quat';
+    L4     [math/]  import type { Quat as QuatT } from '../math/quat';
+    L5     [math/]  import { Vec3 } from '../math/vec3';
+    L6     [math/]  import type { Vec3 as Vec3T } from '../math/vec3';
+    L7     [math/]  import { perspectiveCSS } from '../math/projection';
+  src/index.ts
+    L51    [math/]  export type { Vec3 as Vec3T } from './math/vec3';
+    L52    [math/]  export type { Quat as QuatT } from './math/quat';
+    L53    [math/]  export type { Mat4 as Mat4T } from './math/mat4';
+  src/persistence/persistence.ts
+    L1     [math/]  import type { Quat as QuatT } from '../math/quat';
+  src/polyhedra/orientations.ts
+    L1     [math/]  import { Vec3 } from '../math/vec3';
+    L2     [math/]  import type { Vec3 as Vec3T } from '../math/vec3';
+    L3     [math/]  import { Quat } from '../math/quat';
+    L4     [math/]  import type { Quat as QuatT } from '../math/quat';
+  src/polyhedra/polyhedron.ts
+    L1     [math/]  import { Vec3 } from '../math/vec3';
+    L2     [math/]  import type { Vec3 as Vec3T } from '../math/vec3';
+  src/polyhedra/presets/dodecahedron.ts
+    L1     [math/]  import { Vec3 } from '../../math/vec3';
+    L2     [math/]  import type { Vec3 as Vec3T } from '../../math/vec3';
+  src/polyhedra/presets/icosahedron.ts
+    L1     [math/]  import { Vec3 } from '../../math/vec3';
+    L2     [math/]  import type { Vec3 as Vec3T } from '../../math/vec3';
+  src/polyhedra/presets/prism.ts
+    L2     [math/]  import type { Vec3 as Vec3T } from '../../math/vec3';
+  src/polyhedra/transitions.ts
+    L1     [math/]  import { Vec3 } from '../math/vec3';
+    L2     [math/]  import { Quat } from '../math/quat';
+    L3     [math/]  import type { Quat as QuatT } from '../math/quat';
+  src/public-api.ts
+    L1     [math/]  import { Quat } from './math/quat';
+    L2     [math/]  import type { Quat as QuatT } from './math/quat';
+
+Each hit is either an intentional compatibility shim (add it with --allow), a reviewed false match such as another
+folder with the same name (add --allow FILE:LINE and say so in the validation report), or a missed reference.

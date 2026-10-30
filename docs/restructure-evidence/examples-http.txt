@@ -1,0 +1,19 @@
+# HTTP status of every example page and the assets they reference (served by scripts/serve-examples.mjs)
+200 /examples/cube-basic.html
+200 /examples/custom-polyhedron.html
+200 /examples/dashboard.html
+200 /examples/dodecahedron.html
+200 /examples/gallery.html
+200 /examples/index.html
+200 /examples/long-content.html
+200 /examples/mobile-gestures.html
+200 /examples/persistence.html
+200 /examples/prism.html
+200 /examples/react-integration.html
+200 /examples/responsive.html
+200 /examples/synced-views.html
+200 /examples/tetrahedron.html
+200 /examples/transparency.html
+200 /dist/index.js
+200 /dist/styles.css
+200 /examples/_shared.css

@@ -1,0 +1,7 @@
+added 151 packages in 2s
+
+[2m Test Files [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m      Tests [22m [1m[32m83 passed[39m[22m[90m (83)[39m
+ESM ⚡️ Build success in 1022ms
+CJS ⚡️ Build success in 1022ms
+DTS ⚡️ Build success in 2880ms

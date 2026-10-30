@@ -1,0 +1,83 @@
+{
+  "repo": "/home/claude/polyfacelib",
+  "git_head": "52923cf",
+  "timestamp": "2026-10-30T09:33:08",
+  "checks": [
+    {
+      "id": "npm:typecheck",
+      "cmd": "npm run typecheck",
+      "kind": "typecheck",
+      "note": "",
+      "status": "pass",
+      "exit_code": 0,
+      "duration_s": 1.8,
+      "counters": {},
+      "stdout_tail": "\n> polyfacelib@0.1.0 typecheck\n> tsc --noEmit\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "id": "npm:lint",
+      "cmd": "npm run lint",
+      "kind": "lint",
+      "note": "",
+      "status": "fail",
+      "exit_code": 2,
+      "duration_s": 0.2,
+      "counters": {},
+      "stdout_tail": "\n> polyfacelib@0.1.0 lint\n> eslint . --ext .ts\n\n",
+      "stderr_tail": "\nOops! Something went wrong! :(\n\nESLint: 10.1.0\n\nESLint couldn't find an eslint.config.(js|mjs|cjs) file.\n\nFrom ESLint v9.0.0, the default configuration file is now eslint.config.js.\nIf you are using a .eslintrc.* file, please follow the migration guide\nto update your configuration file to the new format:\n\nhttps://eslint.org/docs/latest/use/configure/migration-guide\n\nIf you still have problems after following the migration guide, please stop by\nhttps://eslint.org/chat/help to chat with the team.\n\n"
+    },
+    {
+      "id": "npm:build",
+      "cmd": "npm run build",
+      "kind": "build",
+      "note": "",
+      "status": "pass",
+      "exit_code": 0,
+      "duration_s": 3.7,
+      "counters": {},
+      "stdout_tail": "\n> polyfacelib@0.1.0 build\n> tsup\n\nCLI Building entry: {\"index\":\"src/index.ts\",\"presets\":\"src/polyhedra/presets/index.ts\"}\nCLI Using tsconfig: tsconfig.json\nCLI tsup v8.5.1\nCLI Using tsup config: /home/claude/polyfacelib/tsup.config.ts\nCLI Target: es2020\nCLI Cleaning output folder\nESM Build start\nCJS Build start\nDTS Build start\nESM dist/index.js       39.15 KB\nESM dist/presets.js     4.67 KB\nESM dist/index.js.map   209.44 KB\nESM dist/presets.js.map 29.58 KB\nESM \u26a1\ufe0f Build success in 995ms\nCJS dist/index.cjs       39.22 KB\nCJS dist/presets.cjs     4.72 KB\nCJS dist/presets.cjs.map 29.58 KB\nCJS dist/index.cjs.map   209.44 KB\nCJS \u26a1\ufe0f Build success in 995ms\nDTS \u26a1\ufe0f Build success in 2773ms\nDTS dist/index.d.ts           11.98 KB\nDTS dist/presets.d.ts         168.00 B\nDTS dist/index-CDJjs2vf.d.ts  4.44 KB\nDTS dist/index.d.cts          11.98 KB\nDTS dist/presets.d.cts        169.00 B\nDTS dist/index-CDJjs2vf.d.cts 4.44 KB\n",
+      "stderr_tail": ""
+    },
+    {
+      "id": "npm:test",
+      "cmd": "CI=1 npm run test -- --run",
+      "kind": "test",
+      "note": "",
+      "status": "pass",
+      "exit_code": 0,
+      "duration_s": 7.1,
+      "counters": {
+        "passed": 83,
+        "files_passed": 7
+      },
+      "stdout_tail": "\n> polyfacelib@0.1.0 test\n> vitest run --run\n\n\n RUN  v1.6.1 /home/claude/polyfacelib\n\n \u2713 tests/api.test.ts  (9 tests) 115ms\n \u2713 tests/transitions.test.ts  (16 tests) 35ms\n \u2713 tests/polyhedra.test.ts  (33 tests) 14ms\n \u2713 tests/math.test.ts  (14 tests) 6ms\n \u2713 tests/persistence.test.ts  (4 tests) 14ms\n \u2713 tests/transparency.test.ts  (4 tests) 3ms\n \u2713 tests/zones.test.ts  (3 tests) 4ms\n\n Test Files  7 passed (7)\n      Tests  83 passed (83)\n   Start at  09:33:01\n   Duration  6.61s (transform 524ms, setup 1ms, collect 702ms, tests 191ms, environment 4.10s, prepare 470ms)\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "id": "extra-1",
+      "cmd": "npm pack --dry-run",
+      "kind": "custom",
+      "note": "",
+      "status": "pass",
+      "exit_code": 0,
+      "duration_s": 0.6,
+      "counters": {},
+      "stdout_tail": "polyfacelib-0.1.0.tgz\n",
+      "stderr_tail": "npm notice\nnpm notice \ud83d\udce6  polyfacelib@0.1.0\nnpm notice Tarball Contents\nnpm notice 1.1kB LICENSE\nnpm notice 15.1kB README.md\nnpm notice 4.6kB dist/index-CDJjs2vf.d.cts\nnpm notice 4.6kB dist/index-CDJjs2vf.d.ts\nnpm notice 40.2kB dist/index.cjs\nnpm notice 214.6kB dist/index.cjs.map\nnpm notice 12.3kB dist/index.d.cts\nnpm notice 12.3kB dist/index.d.ts\nnpm notice 40.1kB dist/index.js\nnpm notice 214.6kB dist/index.js.map\nnpm notice 4.8kB dist/presets.cjs\nnpm notice 30.3kB dist/presets.cjs.map\nnpm notice 169B dist/presets.d.cts\nnpm notice 168B dist/presets.d.ts\nnpm notice 4.8kB dist/presets.js\nnpm notice 30.3kB dist/presets.js.map\nnpm notice 2.8kB dist/styles.css\nnpm notice 1.9kB package.json\nnpm notice Tarball Details\nnpm notice name: polyfacelib\nnpm notice version: 0.1.0\nnpm notice filename: polyfacelib-0.1.0.tgz\nnpm notice package size: 161.6 kB\nnpm notice unpacked size: 634.5 kB\nnpm notice shasum: 6d488c82e7f0a661d4e37dae75b3b735280f125c\nnpm notice integrity: sha512-JWv0t4WtHtL0r[...]IAHVrW/VVQU+w==\nnpm notice total files: 18\nnpm notice\n"
+    },
+    {
+      "id": "extra-2",
+      "cmd": "node --check scripts/serve-examples.mjs",
+      "kind": "custom",
+      "note": "",
+      "status": "pass",
+      "exit_code": 0,
+      "duration_s": 0.0,
+      "counters": {},
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "only": null
+}
